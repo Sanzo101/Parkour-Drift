@@ -6,25 +6,30 @@ using UnityEngine.UI;
 public class LaunchBar : MonoBehaviour
 {
     public Image Mask;
-    public float Speed = 1;
-    float BarMaxValue = 100;
+    public float BarSpeed = 1;
+    public float PlayerSpeed;
+    float BarMaxValue = 10;
     float BarCurrentValue;
-    bool BarIncreasing; 
+    bool BarIncreasing;
+    Rigidbody RB;
+    public float Multiplier;
     [System.NonSerialized]
     public bool BarOn;
     // Start is called before the first frame update
     void Start()
     {
+        RB = GetComponent<Rigidbody>();
         BarCurrentValue = 0;
         BarIncreasing = true;
         BarOn = true;
         StartCoroutine(UpdateBar());
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LaunchPlayer()
     {
-        
+        PlayerSpeed = BarCurrentValue * Multiplier;
+        RB.velocity = new Vector3(RB.velocity.x, RB.velocity.y, PlayerSpeed);
+        BarOn = false;
     }
     IEnumerator UpdateBar()
     {
@@ -32,7 +37,7 @@ public class LaunchBar : MonoBehaviour
         {
             if(!BarIncreasing)
             {
-                BarCurrentValue -= Speed;
+                BarCurrentValue -= BarSpeed;
                 if(BarCurrentValue<=0)
                 {
                     BarIncreasing = true;
@@ -40,7 +45,7 @@ public class LaunchBar : MonoBehaviour
             }
             if(BarIncreasing)
             {
-                BarCurrentValue += Speed;
+                BarCurrentValue += BarSpeed;
                 if(BarCurrentValue>=BarMaxValue)
                 {
                     BarIncreasing = false;
@@ -52,5 +57,4 @@ public class LaunchBar : MonoBehaviour
         }
         yield return null;
     }
-
 }

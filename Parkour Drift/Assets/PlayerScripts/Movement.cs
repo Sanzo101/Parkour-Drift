@@ -6,15 +6,12 @@ public class Movement : MonoBehaviour
 {
     GameObject Player;
     public GameObject Bar;
-    Rigidbody RB;
     public string s_Player;
-    public float Speed;
     LaunchBar PowerBar;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag(s_Player);
-        RB = Player.GetComponent<Rigidbody>();
         PowerBar = Player.GetComponent<LaunchBar>();
     }
 
@@ -22,15 +19,14 @@ public class Movement : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
-        {
-            RB.AddForce(Vector3.forward * Speed);
-            PowerBar.BarOn = false;
+        {           
+            PowerBar.LaunchPlayer();
             StartCoroutine(BarDisable());
         }
     }
     IEnumerator BarDisable()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1);
         Bar.SetActive(false);
     }
 }
