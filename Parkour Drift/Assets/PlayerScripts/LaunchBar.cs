@@ -17,7 +17,7 @@ public class LaunchBar : MonoBehaviour
     public Acceleration_States State;
     bool Accelration_Max_Speed_Reached = false;
     public Image Mask;
-    public float BarSpeed;
+    public float BarSpeed = 1;
     public float PlayerSpeed,MaxSpeed;
     public float Acceleration;
     float BarMaxValue = 100;
@@ -42,20 +42,24 @@ public class LaunchBar : MonoBehaviour
         State = Get_State();      
         Initial_Acceleration_Force(State);
         PlayerActivated_Speed(MaxSpeed, Acceleration);
-        print(Acceleration);
+       // BarSpeedController();
     }
     private Acceleration_States Get_State()
     {
-        if (BarCurrentValue <= 25f && BarCurrentValue > 0f) return Acceleration_States.Low;
-        if (BarCurrentValue <= 50f && BarCurrentValue > 25f) return Acceleration_States.Medium;
-        if (BarCurrentValue <= 75f && BarCurrentValue > 50f) return Acceleration_States.High;
-        if (BarCurrentValue <= 100f && BarCurrentValue > 75f) return Acceleration_States.Super;
+        if (BarCurrentValue <= 30f && BarCurrentValue > 0f) return Acceleration_States.Low;
+        if (BarCurrentValue <= 60f && BarCurrentValue > 30f) return Acceleration_States.Medium;
+        if (BarCurrentValue <= 90f && BarCurrentValue > 60f) return Acceleration_States.High;
+        if (BarCurrentValue <= 100f && BarCurrentValue > 90f) return Acceleration_States.Super;
         return Acceleration_States.Nothing;
 
     }
     public void LaunchPlayer()
     {
-        Acceleration = (BarCurrentValue * AccelrationMultiplier);
+        if (State == Acceleration_States.Low) Acceleration = (30 * AccelrationMultiplier);
+        else
+        {
+            Acceleration = (BarCurrentValue * AccelrationMultiplier);
+        }
         AccelarationActive = true;
         BarOn = false;
     }
@@ -90,7 +94,7 @@ public class LaunchBar : MonoBehaviour
         if (AccelarationActive)
         {
             //add force until certain point and then steady speed
-            RB.AddForce((Vector3.forward * Accelration)/100, ForceMode.Acceleration);
+            RB.AddForce((Vector3.forward * Accelration)/20, ForceMode.Acceleration);          
             if (RB.velocity.z >= MaxSpeed)
             {
                 AccelarationActive = false;
@@ -103,27 +107,37 @@ public class LaunchBar : MonoBehaviour
         }
     }
     private void Initial_Acceleration_Force(Acceleration_States states)
-    {
-        switch (states)
-        {
-            case Acceleration_States.Low:
-                //Acceleration boost is low
-                AccelrationMultiplier = .5f;
-                break;
-            case Acceleration_States.Medium:
-                //Acceleration boost is Medium
-                AccelrationMultiplier = 1f;
-                break;
-            case Acceleration_States.High:
-                //Acceleration boost is High
-                AccelrationMultiplier = 1.5f;
-                break;
-            case Acceleration_States.Super:
-                //Acceleration boost is Super
-                AccelrationMultiplier = 2f;
-                break;
-            case Acceleration_States.Nothing:              
-                break;
-        }
+    {     
+            switch (states)
+            {
+                case Acceleration_States.Low:
+                    //Acceleration boost is low
+                    AccelrationMultiplier = 1f;
+                    BarSpeed = 2f;
+                    break;
+                case Acceleration_States.Medium:
+                    //Acceleration boost is Medium
+                    AccelrationMultiplier = 1.3f;
+                    BarSpeed = 4f;
+                    break;
+                case Acceleration_States.High:
+                    //Acceleration boost is High
+                    AccelrationMultiplier = 1.8f;
+                    BarSpeed = 6f;
+                    break;
+                case Acceleration_States.Super:
+                    //Acceleration boost is Super
+                    AccelrationMultiplier = 2.5f;
+                    BarSpeed = 8f;
+                    break;
+                case Acceleration_States.Nothing:
+                    break;
+            }                            
     }
+    //private void BarSpeedController()
+    //{
+    //    if (BarCurrentValue >= 60f) BarSpeed = 3f;
+    //    else BarSpeed = 1f;
+        
+    //}
 }
