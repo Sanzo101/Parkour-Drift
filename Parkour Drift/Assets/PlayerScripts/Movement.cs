@@ -7,26 +7,27 @@ public class Movement : MonoBehaviour
     GameObject Player;
     public GameObject Bar;
     public string s_Player;
-    LaunchBar PowerBar;
+    Speedometre Input;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag(s_Player);
-        PowerBar = Player.GetComponent<LaunchBar>();
+        Input = Player.GetComponent<Speedometre>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {           
-            PowerBar.LaunchPlayer();
-            StartCoroutine(BarDisable());
-        }
+        Input.Player_Input();
+        //if (Input.GetKeyDow(KeyCode.Space))
+        //{           
+            
+        //    StartCoroutine(BarDisable());
+        //}
     }
-    IEnumerator BarDisable()
-    {
-        yield return new WaitForSeconds(1);
-        Bar.SetActive(false);
-    }
+    //IEnumerator BarDisable()
+    //{
+    //    yield return new WaitForSeconds(1);
+    //    Bar.SetActive(false);
+    //}
 }

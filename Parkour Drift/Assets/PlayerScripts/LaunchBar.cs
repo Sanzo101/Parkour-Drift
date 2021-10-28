@@ -42,7 +42,6 @@ public class LaunchBar : MonoBehaviour
         State = Get_State();      
         Initial_Acceleration_Force(State);
         PlayerActivated_Speed(MaxSpeed, Acceleration);
-       // BarSpeedController();
     }
     private Acceleration_States Get_State()
     {
@@ -134,10 +133,4 @@ public class LaunchBar : MonoBehaviour
                     break;
             }                            
     }
-    //private void BarSpeedController()
-    //{
-    //    if (BarCurrentValue >= 60f) BarSpeed = 3f;
-    //    else BarSpeed = 1f;
-        
-    //}
 }
