@@ -18,6 +18,6 @@ public class SpeedText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Speed_Text.text = "" + rb.velocity.z;
+        Speed_Text.text = "" + Mathf.RoundToInt(rb.velocity.z);
     }
 }

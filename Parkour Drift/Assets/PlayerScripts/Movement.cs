@@ -18,16 +18,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Input.SpeedCap();
         Input.Player_Input();
-        //if (Input.GetKeyDow(KeyCode.Space))
-        //{           
-            
-        //    StartCoroutine(BarDisable());
-        //}
-    }
-    //IEnumerator BarDisable()
-    //{
-    //    yield return new WaitForSeconds(1);
-    //    Bar.SetActive(false);
-    //}
+        
+    } 
 }
