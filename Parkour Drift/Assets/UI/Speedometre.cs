@@ -17,7 +17,9 @@ public enum Gears
     gear_1,
     gear_2,
     gear_3,
-    gear_4
+    gear_4,
+    gear_5,
+    gear_6
 }
 
 
@@ -38,7 +40,8 @@ public class Speedometre : MonoBehaviour
 
     float Acceleration;
     float Deceleration;
-    public float AccelerationMultiplier;
+    [SerializeField]
+    float AccelerationMultiplier;
     public bool timersFinished;
     Rigidbody RB;
 
@@ -63,7 +66,6 @@ public class Speedometre : MonoBehaviour
         RB = gameObject.GetComponent<Rigidbody>();
         needleTransform.eulerAngles = new Vector3(0, 0, GetSpeedRotation());
         Initial_Acceleration();
-        Acceleration_Multiplier();
     }
     private float GetSpeedRotation()
     {
@@ -95,6 +97,8 @@ public class Speedometre : MonoBehaviour
         if (gearNum == 2) return Gears.gear_2;
         if (gearNum == 3) return Gears.gear_3;
         if (gearNum == 4) return Gears.gear_4;
+        if (gearNum == 5) return Gears.gear_5;
+        if (gearNum == 6) return Gears.gear_6;
         return Gears.gear_1;
     }
     private void Handle_Gears()
@@ -102,20 +106,52 @@ public class Speedometre : MonoBehaviour
         switch (Gear)
         {
             case Gears.gear_1:
-                Max_RPM = 200;
-                if (Input.GetKeyDown(KeyCode.UpArrow)) gearNum++;
+                Max_RPM = 190;
+                AccelerationMultiplier = 6;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    gearNum++;
+                    Needle_Speed -= 50;                 
+                }            
                 break;
             case Gears.gear_2:
-                Max_RPM = 250;
-                if (Input.GetKeyDown(KeyCode.UpArrow)) gearNum++;
+                Max_RPM = 210;
+                AccelerationMultiplier = 1;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    gearNum++;
+                    Needle_Speed -= 80;
+                }
                 break;
             case Gears.gear_3:
-                Max_RPM = 270;
-                if (Input.GetKeyDown(KeyCode.UpArrow)) gearNum++;
+                Max_RPM = 250;
+                AccelerationMultiplier = .8f;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    gearNum++;
+                    Needle_Speed -= 80;
+                }
                 break;
-            case Gears.gear_4:             
+            case Gears.gear_4:
+                Max_RPM = 280;
+                AccelerationMultiplier = .4f;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    gearNum++;
+                    Needle_Speed -= 80;
+                }
+                break;
+            case Gears.gear_5:
+                Max_RPM = 290;
+                AccelerationMultiplier = .2f;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    gearNum++;
+                    Needle_Speed -= 80;
+                }
+                break;
+            case Gears.gear_6:             
                 Max_RPM = 300;
-                if (Input.GetKeyDown(KeyCode.DownArrow)) gearNum--;
                 break;
         }
     }
@@ -128,7 +164,7 @@ public class Speedometre : MonoBehaviour
         }
         else
         {
-            Deceleration = 80f;
+            Deceleration = 120f;
             Needle_Speed -= Deceleration * Time.deltaTime;
         }
         Needle_Speed = Mathf.Clamp(Needle_Speed, 0f, Max_RPM);
@@ -169,31 +205,6 @@ public class Speedometre : MonoBehaviour
                 default:
                     break;
             }
-        }
-    }
-    private void Acceleration_Multiplier()
-    {
-        switch (State)
-        {
-            case Acceleration_State.Low:
-                //add force until certain point and then steady speed
-                AccelerationMultiplier = .5f;
-                break;
-            case Acceleration_State.Medium:
-                AccelerationMultiplier = 2;
-                break;
-            case Acceleration_State.High:
-                AccelerationMultiplier = 4;
-                break;
-            case Acceleration_State.Super:
-                AccelerationMultiplier = 5;
-                break;
-            case Acceleration_State.TooFar:              
-                AccelerationMultiplier = 5f;
-                AccelVariable = 50f;
-                break;
-            default:
-                break;
         }
     }
     public void SpeedCap()
