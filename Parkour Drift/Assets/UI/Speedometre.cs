@@ -159,7 +159,7 @@ public class Speedometre : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space))
         {
-            GameObject.Find("TrafficLights").GetComponent<TrafficLightsSystem>().timerActive = true;
+            GameObject.Find("Timer").GetComponent<TrafficLightsSystem>().timerActive = true;
             Acceleration = AccelVariable * AccelerationMultiplier;
             Needle_Speed += Acceleration * Time.deltaTime;
         }
