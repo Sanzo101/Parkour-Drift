@@ -23,21 +23,22 @@ public class TrafficLightsSystem : MonoBehaviour
         Light.SetActive(false);
         Light_1.SetActive(false);
         Light_2.SetActive(false);
+        Timer_Image = GameObject.Find("TimerBack").GetComponent<Image>();
+        Timer_Image.color = new Color32(0, 0, 0, 0);
     }
     // Start is called before the first frame update
     void Start()
     {
         TrafficLight = GameObject.Find("TrafficLights");
-        Countdown = GameObject.FindGameObjectWithTag("Timer").GetComponent<Text>();
-        Timer_Image = GameObject.Find("TimerBack").GetComponent<Image>();
+        Countdown = GameObject.FindGameObjectWithTag("Timer").GetComponent<Text>();    
         Anim =gameObject.GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
     {
             if (timerActive)
-            {
-                Anim.SetTrigger("PlayAnim");              
+            {           
+            Anim.SetTrigger("PlayAnim");              
             }
     } 
     void PlayBigHorn()
@@ -54,6 +55,7 @@ public class TrafficLightsSystem : MonoBehaviour
     }
     public void Countdown_Flag()
     {
+        Timer_Image.color = new Color32(255, 0, 0, 255);
         if (!SoundSwitch)
         {
             PlayIgnition();
@@ -61,7 +63,7 @@ public class TrafficLightsSystem : MonoBehaviour
         }
     }
     public void Countdown_3()
-    {
+    {       
         Countdown.text = "3";
         Countdown.color = Color.HSVToRGB(0, 100, 100);
         TrafficLight.GetComponent<Image>().sprite = Lights[0];
