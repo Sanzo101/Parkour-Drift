@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChangeCamera : MonoBehaviour
 {
+    [SerializeField]
+    GameObject Cam_1, Cam_2;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,9 @@ public class ChangeCamera : MonoBehaviour
     void Update()
     {
         
+    }
+    public void CameraSwitch()
+    {
+        Cam_1.SetActive(false);
     }
 }

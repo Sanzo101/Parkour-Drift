@@ -25,6 +25,7 @@ public class TrafficLightsSystem : MonoBehaviour
         Light_2.SetActive(false);
         Timer_Image = GameObject.Find("TimerBack").GetComponent<Image>();
         Timer_Image.color = new Color32(0, 0, 0, 0);
+        Timer_Image.GetComponent<Light>().gameObject.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()
@@ -55,6 +56,7 @@ public class TrafficLightsSystem : MonoBehaviour
     }
     public void Countdown_Flag()
     {
+        Timer_Image.GetComponent<Light>().gameObject.SetActive(true);
         Timer_Image.color = new Color32(255, 0, 0, 255);
         if (!SoundSwitch)
         {

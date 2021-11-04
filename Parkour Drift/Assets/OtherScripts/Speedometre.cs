@@ -25,6 +25,10 @@ public enum Gears
 
 public class Speedometre : MonoBehaviour
 {
+    [SerializeField]
+    GameObject TrafficLights;
+    ChangeCamera Cam;
+
     float Max_RPM;
     float gearNum = 1;
 
@@ -51,11 +55,12 @@ public class Speedometre : MonoBehaviour
     public float Speed;
     private float Needle_Speed;
     private void Awake()
-    {     
+    {   
         needleTransform = GameObject.Find("Pointer").transform;
         Needle_Speed = 0;     
         Max_Speed = 300f;
         timersFinished = false;
+        Cam = TrafficLights.GetComponent<ChangeCamera>();
     }
     // Update is called once per frame
     void Update()
@@ -159,6 +164,7 @@ public class Speedometre : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space))
         {
+            Cam.CameraSwitch();
             GameObject.Find("Timer").GetComponent<TrafficLightsSystem>().timerActive = true;
             Acceleration = AccelVariable * AccelerationMultiplier;
             Needle_Speed += Acceleration * Time.deltaTime;
