@@ -18,7 +18,6 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Input.SpeedCap();
         Input.Player_Input();
         
     } 

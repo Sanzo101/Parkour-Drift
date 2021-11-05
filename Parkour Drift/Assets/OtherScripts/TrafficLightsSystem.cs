@@ -108,7 +108,7 @@ public class TrafficLightsSystem : MonoBehaviour
             SoundSwitch = true;
         }
         Speedometre Timer = GameObject.FindGameObjectWithTag("Player").GetComponent<Speedometre>();
-        Timer.timersFinished = true;
+        //Timer.timersFinished = true;
         Countdown.fontSize = 150;
         Countdown.color = new Color32(8, 255, 0, 255);
         Timer_Image.color = new Color32(8,255,0,255);
