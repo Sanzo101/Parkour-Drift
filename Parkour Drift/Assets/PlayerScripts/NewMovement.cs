@@ -34,7 +34,6 @@ public class NewMovement : MonoBehaviour
         float A = Input.GetAxis("Vertical")*10;
         float S = Input.GetAxis("Horizontal")*10;
         Ignite(A,S, Acceleration_Multiplier);
-        print(rb.velocity);
     }
     public void Player_Input()
     {
